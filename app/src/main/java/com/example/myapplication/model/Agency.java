@@ -1,9 +1,14 @@
 package com.example.myapplication.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Agency {
 
+    @SerializedName("id")
     private int id;
+    @SerializedName("login")
     private String login;
+    @SerializedName("password")
     private String password;
 
     public Agency(int id, String login, String password) {

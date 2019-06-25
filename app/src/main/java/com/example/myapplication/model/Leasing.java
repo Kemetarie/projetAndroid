@@ -1,15 +1,25 @@
 package com.example.myapplication.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class Leasing {
+    @SerializedName("id")
     private int id;
+    @SerializedName("client_id")
     private Client client;
+    @SerializedName("car_id")
     private Car car;
+    @SerializedName("start_date")
     private Date startDate;
+    @SerializedName("end_date")
     private Date endDate;
+    @SerializedName("before_picture")
     private String beforePicture;
+    @SerializedName("after_picture")
     private String afterPicture;
+    @SerializedName("returned")
     private boolean returned;
 
     public Leasing(int id, Client client, Car car, Date startDate, Date endDate, String beforePicture, String afterPicture, boolean returned) {

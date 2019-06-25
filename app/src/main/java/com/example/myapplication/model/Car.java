@@ -1,11 +1,18 @@
 package com.example.myapplication.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Car {
 
+    @SerializedName("id")
     private int id;
+    @SerializedName("is_stored")
     private boolean isStored;
+    @SerializedName("daily_price")
     private int dailyPrice;
+    @SerializedName("plate")
     private String plate;
+    @SerializedName("agency_id")
     private Agency agency;
 
     public Car(int id, boolean isStored, int dailyPrice, String plate, Agency agency) {

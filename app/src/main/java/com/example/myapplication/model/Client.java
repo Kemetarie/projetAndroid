@@ -1,10 +1,16 @@
 package com.example.myapplication.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Client {
 
+    @SerializedName("id")
     private int id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("surname")
     private String surname;
+    @SerializedName("address")
     private String address;
 
     public Client(int id, String name, String surname, String address) {
