@@ -1,11 +1,10 @@
 package com.example.myapplication.model;
 
+
 import com.google.gson.annotations.SerializedName;
 
 public class Client {
 
-    @SerializedName("id")
-    private int id;
     @SerializedName("name")
     private String name;
     @SerializedName("surname")
@@ -13,19 +12,10 @@ public class Client {
     @SerializedName("address")
     private String address;
 
-    public Client(int id, String name, String surname, String address) {
-        this.id = id;
+    public Client(String name, String surname, String address) {
         this.name = name;
         this.surname = surname;
         this.address = address;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -55,7 +45,6 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", address='" + address + '\'' +
