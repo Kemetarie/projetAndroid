@@ -1,20 +1,22 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import com.example.myapplication.model.APIService;
+import com.example.myapplication.model.Entity.Client;
+import com.example.myapplication.model.adapter.ClientAdapter;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String BASE_URL = "https://projetandroid-c3605.firebaseio.com";
     public static final String TAG = MainActivity.class.getName();
 
     @Override
@@ -22,32 +24,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final ClientAdapter adapter = new ClientAdapter(APIService.getClients());
+        RecyclerView recyclerView = findViewById(R.id.client_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
         try {
-            run(BASE_URL + "/clients.json");
+            APIService.getAllClients(new APIService.OnDownloadAllClientListener() {
+                @Override
+                public void onAllClientDownloaded(final List<Client> clients) {
+                    adapter.setListClient(clients);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
-    void run(String url) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-       client.newCall(request).enqueue(new Callback() {
-           @Override
-           public void onFailure(Request request, IOException e) {
-
-           }
-
-           @Override
-           public void onResponse(Response response) throws IOException {
-                String json = response.body().string();
-               Log.e(TAG, "onResponse: " + json);
-           }
-       });
+    public void onClickGoToAddClient(View v)
+    {
+        Intent addClientActivity = new Intent(this, AddClient.class);
+        startActivity(addClientActivity);
     }
 }
